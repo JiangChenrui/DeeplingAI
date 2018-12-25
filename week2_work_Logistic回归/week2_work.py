@@ -16,12 +16,12 @@ def load_dataset():
     train_set_x_orig = np.array(train_dataset["train_set_x"][:]) # 提取训练集特征数据
     train_set_y_orig = np.array(train_dataset["train_set_y"][:]) # 提取训练集标签
 
-    test_dataset = h5py.File('datasets/test_catvnoncat.h5', "r") #测试集位置
+    test_dataset = h5py.File('datasets/test_catvnoncat.h5', "r") # 测试集位置
     test_set_x_orig = np.array(test_dataset["test_set_x"][:]) # 提取测试集特征数据
     test_set_y_orig = np.array(test_dataset["test_set_y"][:]) # 提取测试集标签
 
     classes = np.array(test_dataset["list_classes"][:]) # 类别信息，0表示不是猫，1表示是猫
-    train_set_y_orig = train_set_y_orig.reshape((1, train_set_y_orig.shape[0])) #将标签的行向量转换为列向量
+    train_set_y_orig = train_set_y_orig.reshape((1, train_set_y_orig.shape[0])) # 将标签的行向量转换为列向量
     test_set_y_orig = test_set_y_orig.reshape((1, test_set_y_orig.shape[0])) 
     
     return train_set_x_orig, train_set_y_orig, test_set_x_orig, test_set_y_orig, classes
