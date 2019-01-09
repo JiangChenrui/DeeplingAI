@@ -1,7 +1,7 @@
 #%% Change working directory from the workspace root to the ipynb file location. Turn this addition off with the DataSciece.changeDirOnImportExport setting
 import os
 try:
-	os.chdir(os.path.join(os.getcwd(), '..\GitHub\The-homeword-of-Deepling-AI-\【吴恩达课后编程作业】第二周+-+PA1+-+具有神经网络思维的Logistic回归'))
+	os.chdir(os.path.join(os.getcwd(), 'The-homeword-of-Deepling-AI\week2_work_Logistic回归'))
 	print(os.getcwd())
 except:
 	pass
@@ -16,12 +16,12 @@ def load_dataset():
     train_set_x_orig = np.array(train_dataset["train_set_x"][:]) # 提取训练集特征数据
     train_set_y_orig = np.array(train_dataset["train_set_y"][:]) # 提取训练集标签
 
-    test_dataset = h5py.File('datasets/test_catvnoncat.h5', "r") # 测试集位置
+    test_dataset = h5py.File('datasets/test_catvnoncat.h5', "r") #测试集位置
     test_set_x_orig = np.array(test_dataset["test_set_x"][:]) # 提取测试集特征数据
     test_set_y_orig = np.array(test_dataset["test_set_y"][:]) # 提取测试集标签
 
     classes = np.array(test_dataset["list_classes"][:]) # 类别信息，0表示不是猫，1表示是猫
-    train_set_y_orig = train_set_y_orig.reshape((1, train_set_y_orig.shape[0])) # 将标签的行向量转换为列向量
+    train_set_y_orig = train_set_y_orig.reshape((1, train_set_y_orig.shape[0])) #将标签的行向量转换为列向量
     test_set_y_orig = test_set_y_orig.reshape((1, test_set_y_orig.shape[0])) 
     
     return train_set_x_orig, train_set_y_orig, test_set_x_orig, test_set_y_orig, classes
@@ -334,3 +334,9 @@ plt.ylabel('cost')
 plt.xlabel('iterations (per hundreds)')
 plt.title("Learning rate =" + str(d["learning_rate"]))
 plt.show()
+
+
+#%%
+
+
+
