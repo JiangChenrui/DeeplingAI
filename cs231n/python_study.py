@@ -1,5 +1,8 @@
 import numpy as np
 from math import sqrt
+from scipy.misc import imread, imsave, imresize
+from scipy.spatial.distance import pdist, squareform
+import matplotlib.pyplot as plt
 
 
 # 快排
@@ -443,4 +446,94 @@ def numpy_Broad():
 
 
 # numpy_Broad()
-# 
+# scipy
+
+
+def numpy_scipy():
+    img = imread('E:/GitHub/Interview-question-collection/picture/1.jpg')
+    print(img.dtype, img.shape)
+    img_tinted = img * [1, 0.95, 0.9]
+    img_tinted = imresize(img_tinted, (300, 300))
+    imsave('1_tinted.jpg', img_tinted)
+
+
+# numpy_scipy()
+# 计算集合中点的距离
+
+
+def numpy_eu():
+    x = np.array([[0, 1], [1, 0], [2, 0]])
+    print(x)
+    d = squareform(pdist(x, 'euclidean'))
+    print(d)
+
+
+# numpy_eu()
+# 绘图
+
+
+def plt_show():
+    x = np.arange(0, 3*np.pi, 0.1)
+    y = np.sin(x)
+
+    print(np.pi)
+    plt.plot(x, y)
+    plt.show()
+
+
+# plt_show()
+# 一图多线
+
+
+def plt_more():
+    x = np.arange(-3*np.pi, 3*np.pi, 0.1)
+    y_sin = np.sin(x)
+    y_cos = np.cos(x)
+    y_tanh = np.tanh(x)
+    
+    plt.plot(x, y_cos)
+    plt.plot(x, y_sin)
+    plt.plot(x, y_tanh)
+    plt.xlabel('x axis label')
+    plt.ylabel('y axis label')
+    plt.legend(['cos', 'sin', 'tanh'])
+    plt.show()
+
+
+# plt_more()
+# 使用subplot函数在同一幅图中画不同的东西
+
+
+def plt_subplot():
+    x = np.arange(0, 3*np.pi, 0.1)
+    y_sin = np.sin(x)
+    y_cos = np.cos(x)
+
+    plt.subplot(211)
+    plt.plot(x, y_sin)
+    plt.title('sin')
+
+    plt.subplot(212)
+    plt.plot(x, y_cos)
+    plt.title('cos')
+
+    plt.show()
+
+
+# plt_subplot()
+
+
+def imshow_pic():
+    img = imread('1_tinted.jpg')
+    img_tinted = img * [1, 0.50, 0.25]
+    plt.subplot(1, 2, 1)
+    plt.imshow(img)
+
+    plt.subplot(1, 2, 2)
+    print(img.dtype, img)
+    print(img_tinted.dtype, img_tinted)
+    plt.imshow(np.uint8(img_tinted))
+    plt.show()
+
+
+# imshow_pic()
