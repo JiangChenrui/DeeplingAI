@@ -26,6 +26,24 @@
 [吴恩达深度学习视频](https://mooc.study.163.com/learn/2001281002?tid=2001392029#/learn/content)  
 [作业参考](https://blog.csdn.net/u013733326/article/details/79827273)
 
-## logistic回归
+### 神经网络和深度学习  
 
-[作业代码](https://github.com/holyhond/The-homeword-of-Deepling-AI-/tree/master/week2_work_Logistic%E5%9B%9E%E5%BD%92)  
+#### logistic回归
+
+[作业代码](https://github.com/JiangChenrui/DeeplingAI/tree/master/DeeplingAI_course1/week2_Logistic)  
+
+#### 浅层神经网络  
+
+[作业代码](https://github.com/JiangChenrui/DeeplingAI/tree/master/DeeplingAI_course1/week3_simple_net)  
+
+#### 深层神经网络  
+
+[作业代码](https://github.com/JiangChenrui/DeeplingAI/tree/master/DeeplingAI_course1/week4_complex_net)
+
+### 改善深层神经网络  
+
+#### 深度学习的实用层面  
+
+## cs231n课程笔记  
+
+### [图像处理的一些简单方法](https://github.com/JiangChenrui/matching_learning_note/blob/master/image_enhance.py)  
