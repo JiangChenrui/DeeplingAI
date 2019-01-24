@@ -1,7 +1,7 @@
 #%% Change working directory from the workspace root to the ipynb file location. Turn this addition off with the DataSciece.changeDirOnImportExport setting
 import os
 try:
-	os.chdir(os.path.join(os.getcwd(), '..\GitHub\The-homeword-of-Deepling-AI\Week 3 - PA 2 - Planar data classification with one hidden layer'))
+	os.chdir(os.path.join(os.getcwd(), 'DeeplingAI\DeeplingAI_course1\week3_simple_net'))
 	print(os.getcwd())
 except:
 	pass
@@ -371,7 +371,7 @@ hidden_layer_sizes = [1, 2, 3, 4, 5, 20, 50] #隐藏层数量
 for i, n_h in enumerate(hidden_layer_sizes):
     plt.subplot(5, 2, i + 1)
     plt.title('Hidden Layer of size %d' % n_h)
-    parameters = nn_model(X, Y, n_h, num_iterations=10000)
+    parameters = nn_model(X, Y, n_h, num_iterations=5000)
     plot_decision_boundary(lambda x: predict(parameters, x.T), X, Y)
     predictions = predict(parameters, X)
     accuracy = float((np.dot(Y, predictions.T) + np.dot(1 - Y, 1 - predictions.T)) / float(Y.size) * 100)

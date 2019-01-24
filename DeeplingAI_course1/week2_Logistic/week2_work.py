@@ -1,7 +1,7 @@
 #%% Change working directory from the workspace root to the ipynb file location. Turn this addition off with the DataSciece.changeDirOnImportExport setting
 import os
 try:
-	os.chdir(os.path.join(os.getcwd(), 'The-homeword-of-Deepling-AI\week2_work_Logistic回归'))
+	os.chdir(os.path.join(os.getcwd(), 'DeeplingAI\DeeplingAI_course1\week2_Logistic'))
 	print(os.getcwd())
 except:
 	pass
