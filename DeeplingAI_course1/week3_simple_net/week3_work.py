@@ -1,15 +1,17 @@
 #%% Change working directory from the workspace root to the ipynb file location. Turn this addition off with the DataSciece.changeDirOnImportExport setting
 import os
 try:
-	os.chdir(os.path.join(os.getcwd(), 'DeeplingAI\DeeplingAI_course1\week3_simple_net'))
-	print(os.getcwd())
+    os.chdir(
+        os.path.join(os.getcwd(),
+                     'DeeplingAI\DeeplingAI_course1\week3_simple_net'))
+    print(os.getcwd())
 except:
-	pass
+    pass
 
 #%%
 import numpy as np
 import matplotlib.pyplot as plt
-from testCases import*
+from testCases import *
 import sklearn
 import sklearn.datasets
 import sklearn.linear_model
@@ -17,33 +19,31 @@ from planar_utils import plot_decision_boundary, sigmoid, load_planar_dataset, l
 
 get_ipython().magic('matplotlib inline')
 
-np.random.seed(1) # 设置一个固定的随机种子
-
+np.random.seed(1)  # 设置一个固定的随机种子
 
 #%%
 # 加载数据集
 X, Y = load_planar_dataset()
 
-print("X.shape="+str(X.shape))
-print("Y.shape="+str(Y.shape))
+print("X.shape=" + str(X.shape))
+print("Y.shape=" + str(Y.shape))
 
 # 对数据进行可视化
-plt.scatter(X[0, :], X[1, :], c=np.squeeze(Y), s=4, cmap=plt.cm.Spectral) #绘制散点图
-
+plt.scatter(
+    X[0, :], X[1, :], c=np.squeeze(Y), s=4, cmap=plt.cm.Spectral)  #绘制散点图
 
 #%%
 # 使用逻辑回归观察表现
 clf = sklearn.linear_model.LogisticRegressionCV()
 clf.fit(X.T, Y.T)
 
-
 #%%
-plot_decision_boundary(lambda x: clf.predict(x), X, Y) # 绘制决策边界
-plt.title("Logistic Regression") # 图标题
-LR_predictions = clf.predict(X.T) # 预测结果
-print ("逻辑回归的准确性： %d " % float((np.dot(Y,LR_predictions) + 
-                            np.dot(1-Y, 1-LR_predictions)) / float(Y.size)*100) +
-      "% " + "(正确标记的数据点所占的百分比)")
+plot_decision_boundary(lambda x: clf.predict(x), X, Y)  # 绘制决策边界
+plt.title("Logistic Regression")  # 图标题
+LR_predictions = clf.predict(X.T)  # 预测结果
+print("逻辑回归的准确性： %d " % float(
+    (np.dot(Y, LR_predictions) + np.dot(1 - Y, 1 - LR_predictions)) /
+    float(Y.size) * 100) + "% " + "(正确标记的数据点所占的百分比)")
 
 
 #%%
@@ -59,18 +59,18 @@ def layer_sizes(X, Y):
         n_y : 输出层数量
         n_h : 隐藏层数量
     """
-    n_x = X.shape[0] # 输入层
-    n_h = 4 # 隐藏层
-    n_y = Y.shape[0] #输出层
-    
+    n_x = X.shape[0]  # 输入层
+    n_h = 4  # 隐藏层
+    n_y = Y.shape[0]  #输出层
+
     return (n_x, n_h, n_y)
 
 
 #%%
 # 测试layer_sizes
 print("=========================测试layer_sizes=========================")
-X_asses , Y_asses = layer_sizes_test_case()
-(n_x,n_h,n_y) =  layer_sizes(X_asses,Y_asses)
+X_asses, Y_asses = layer_sizes_test_case()
+(n_x, n_h, n_y) = layer_sizes(X_asses, Y_asses)
 print("输入层的节点数量为: n_x = " + str(n_x))
 print("隐藏层的节点数量为: n_h = " + str(n_h))
 print("输出层的节点数量为: n_y = " + str(n_y))
@@ -91,28 +91,26 @@ def initialize_parameters(n_x, n_h, n_y):
             W2 权重矩阵，维度为（n_y, n_h）
             b1 偏向量，维度为（n_y, 1）
     """
-    np.random.seed(2) # 指定一个随机种子
-    W1 = np.random.randn(n_h, n_x) * 0.01 # 随机初始化一个维度为（n_h, n_x）的矩阵
+    np.random.seed(2)  # 指定一个随机种子
+    W1 = np.random.randn(n_h, n_x) * 0.01  # 随机初始化一个维度为（n_h, n_x）的矩阵
     b1 = np.zeros(shape=(n_h, 1))
     W2 = np.random.randn(n_y, n_h) * 0.01
     b2 = np.zeros(shape=(n_y, 1))
-    
+
     # 使用断言判断格式是否正确
-    assert(W1.shape == (n_h, n_x))
-    assert(b1.shape == (n_h, 1))
-    assert(W2.shape == (n_y, n_h))
-    assert(b2.shape == (n_y, 1))
-    
-    parameters = {"W1" : W1,
-                  "b1" : b1,
-                  "W2" : W2,
-                  "b2" : b2}
+    assert (W1.shape == (n_h, n_x))
+    assert (b1.shape == (n_h, 1))
+    assert (W2.shape == (n_y, n_h))
+    assert (b2.shape == (n_y, 1))
+
+    parameters = {"W1": W1, "b1": b1, "W2": W2, "b2": b2}
     return parameters
 
 
 #%%
 # 测试初始化模型
-print("=======================测试initialize_parameters模型========================")
+print(
+    "=======================测试initialize_parameters模型========================")
 n_x, n_h, n_y = initialize_parameters_test_case()
 parameters = initialize_parameters(n_x, n_h, n_y)
 print("W1 = " + str(parameters["W1"]))
@@ -136,19 +134,16 @@ def forward_propagation(X, parameters):
     W2 = parameters["W2"]
     b1 = parameters["b1"]
     b2 = parameters["b2"]
-    
+
     # 前向传播计算A2
     Z1 = np.dot(W1, X) + b1
     A1 = np.tanh(Z1)
     Z2 = np.dot(W2, A1) + b2
     A2 = sigmoid(Z2)
-    
+
     # 使用断言判断格式
-    assert(A2.shape == (1, X.shape[1]))
-    cache = {"Z1" : Z1,
-             "Z2" : Z2,
-             "A1" : A1,
-             "A2" : A2}
+    assert (A2.shape == (1, X.shape[1]))
+    cache = {"Z1": Z1, "Z2": Z2, "A1": A1, "A2": A2}
     return (A2, cache)
 
 
@@ -157,7 +152,9 @@ def forward_propagation(X, parameters):
 print("=================测试forward_proagation===================")
 X_asses, parameters = forward_propagation_test_case()
 A2, cache = forward_propagation(X_asses, parameters)
-print(np.mean(cache["Z1"]),np.mean(cache["A1"]),np.mean(cache["Z2"]),np.mean(cache["A2"]) )
+print(
+    np.mean(cache["Z1"]), np.mean(cache["A1"]), np.mean(cache["Z2"]),
+    np.mean(cache["A2"]))
 
 
 #%%
@@ -174,13 +171,13 @@ def compute_cost(A2, Y, parameters):
     m = Y.shape[1]
     W1 = parameters["W1"]
     W2 = parameters["W2"]
-    
+
     # 计算成本
-    logprobs = np.multiply(np.log(A2), Y) + np.multiply(np.log(1-A2), (1-Y))
-    cost = - np.sum(logprobs) / m
+    logprobs = np.multiply(np.log(A2), Y) + np.multiply(np.log(1 - A2), (1 - Y))
+    cost = -np.sum(logprobs) / m
     cost = float(np.squeeze(cost))
-    
-    assert(isinstance(cost, float))
+
+    assert (isinstance(cost, float))
     return cost
 
 
@@ -204,27 +201,24 @@ def backward_propagation(parameters, cache, X, Y):
         grads 包含W和b的一个字典型变量
     """
     m = X.shape[1]
-    
+
     W1 = parameters["W1"]
-#     b1 = parameters["b1"]
+    #     b1 = parameters["b1"]
     W2 = parameters["W2"]
-#     b2 = parameters["b2"]
-    
+    #     b2 = parameters["b2"]
+
     A1 = cache["A1"]
     A2 = cache["A2"]
-    
+
     dZ2 = A2 - Y
     dW2 = (1 / m) * np.dot(dZ2, A1.T)
     db2 = (1 / m) * np.sum(dZ2, axis=1, keepdims=True)
     dZ1 = np.multiply(np.dot(W2.T, dZ2), 1 - np.power(A1, 2))
     dW1 = (1 / m) * np.dot(dZ1, X.T)
     db1 = (1 / m) * np.sum(dZ1, axis=1, keepdims=True)
-    grads = {"dW1" : dW1,
-             "db1" : db1,
-             "dW2" : dW2,
-             "db2" : db2}
-    
-    return grads   
+    grads = {"dW1": dW1, "db1": db1, "dW2": dW2, "db2": db2}
+
+    return grads
 
 
 #%%
@@ -241,7 +235,7 @@ print("db2 = " + str(grads["db2"]))
 
 #%%
 # 更新参数
-def update_parameters(parameters, grads, learning_rate = 1.2):
+def update_parameters(parameters, grads, learning_rate=1.2):
     """
     参数：
         parameters 包含参数的字典类型变量
@@ -250,22 +244,19 @@ def update_parameters(parameters, grads, learning_rate = 1.2):
     返回：
         parameters 包含更新参数后的字典类型变量
     """
-    
+
     W1, W2 = parameters["W1"], parameters["W2"]
     b1, b2 = parameters["b1"], parameters["b2"]
-    
+
     dW1, dW2 = grads["dW1"], grads["dW2"]
     db1, db2 = grads["db1"], grads["db2"]
-    
+
     W1 = W1 - learning_rate * dW1
     W2 = W2 - learning_rate * dW2
     b1 = b1 - learning_rate * db1
     b2 = b2 - learning_rate * db2
-    
-    parameters={"W1" : W1,
-                "b1" : b1,
-                "W2" : W2,
-                "b2" : b2}
+
+    parameters = {"W1": W1, "b1": b1, "W2": W2, "b2": b2}
     return parameters
 
 
@@ -281,7 +272,7 @@ print("b2=" + str(parameters["b2"]))
 
 
 #%%
-def nn_model(X, Y, n_h, num_iterations, print_cost = False):
+def nn_model(X, Y, n_h, num_iterations, print_cost=False):
     """
     参数：
         X 数据集，维度为（2， 示例数）
@@ -292,24 +283,24 @@ def nn_model(X, Y, n_h, num_iterations, print_cost = False):
     返回：
         parameters 学习模型的参数，用它们来进行预测
     """
-    np.random.seed(3) # 指定随机种子
+    np.random.seed(3)  # 指定随机种子
     n_x = layer_sizes(X, Y)[0]
     n_y = layer_sizes(X, Y)[2]
-    
+
     parameters = initialize_parameters(n_x, n_h, n_y)
     W1 = parameters["W1"]
     b1 = parameters["b1"]
     W2 = parameters["W2"]
     b2 = parameters["b2"]
-    
+
     for i in range(num_iterations):
         A2, cache = forward_propagation(X, parameters)
         cost = compute_cost(A2, Y, parameters)
         grads = backward_propagation(parameters, cache, X, Y)
         parameters = update_parameters(parameters, grads, learning_rate=0.05)
-        
+
         if print_cost:
-            if i%1000 == 0:
+            if i % 1000 == 0:
                 print("第 ", i, "次循环，成本为" + str(cost))
     return parameters
 
@@ -319,7 +310,8 @@ def nn_model(X, Y, n_h, num_iterations, print_cost = False):
 print("===============测试nn_model=================")
 X_asses, Y_asses = nn_model_test_case()
 
-parameters = nn_model(X_asses, Y_asses, 4, num_iterations=10000, print_cost=False)
+parameters = nn_model(
+    X_asses, Y_asses, 4, num_iterations=10000, print_cost=False)
 
 print("W1=" + str(parameters["W1"]))
 print("b1=" + str(parameters["b1"]))
@@ -339,7 +331,7 @@ def predict(parameters, X):
     """
     A2, cache = forward_propagation(X, parameters)
     prediction = np.round(A2)
-    
+
     return prediction
 
 
@@ -352,33 +344,31 @@ parameters, X_assess = predict_test_case()
 predictions = predict(parameters, X_assess)
 print("预测的平均值 = " + str(np.mean(predictions)))
 
-
 #%%
 # 正式运行
-parameters = nn_model(X, Y, n_h=4, num_iterations=100000,print_cost=True)
+parameters = nn_model(X, Y, n_h=4, num_iterations=100000, print_cost=True)
 
 # 绘制边界
-plot_decision_boundary(lambda x:predict(parameters, x.T), X, Y)
+plot_decision_boundary(lambda x: predict(parameters, x.T), X, Y)
 plt.title("Decision Boundary for hidden layer size" + str(4))
 
 predictions = predict(parameters, X)
-print("准确率：%d" % float((np.dot(Y, predictions.T) + np.dot(1-Y, 1-predictions.T))/float(Y.size)*100) + '%')
-
+print("准确率：%d" % float(
+    (np.dot(Y, predictions.T) + np.dot(1 - Y, 1 - predictions.T)) /
+    float(Y.size) * 100) + '%')
 
 #%%
 plt.figure(figsize=(16, 32))
-hidden_layer_sizes = [1, 2, 3, 4, 5, 20, 50] #隐藏层数量
+hidden_layer_sizes = [1, 2, 3, 4, 5, 20, 50]  #隐藏层数量
 for i, n_h in enumerate(hidden_layer_sizes):
     plt.subplot(5, 2, i + 1)
     plt.title('Hidden Layer of size %d' % n_h)
     parameters = nn_model(X, Y, n_h, num_iterations=5000)
     plot_decision_boundary(lambda x: predict(parameters, x.T), X, Y)
     predictions = predict(parameters, X)
-    accuracy = float((np.dot(Y, predictions.T) + np.dot(1 - Y, 1 - predictions.T)) / float(Y.size) * 100)
-    print ("隐藏层的节点数量： {}  ，准确率: {} %".format(n_h, accuracy))
-
+    accuracy = float(
+        (np.dot(Y, predictions.T) + np.dot(1 - Y, 1 - predictions.T)) / float(
+            Y.size) * 100)
+    print("隐藏层的节点数量： {}  ，准确率: {} %".format(n_h, accuracy))
 
 #%%
-
-
-
